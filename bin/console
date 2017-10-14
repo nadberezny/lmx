@@ -1,10 +1,7 @@
 #!/usr/bin/env ruby
 
 require 'bundler/setup'
-require 'lmx'
-
 require 'pry'
+
 Pry.start
 
-require 'irb'
-IRB.start(__FILE__)
