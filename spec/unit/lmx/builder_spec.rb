@@ -8,7 +8,7 @@ describe Lmx::Builder do
   end
 
   describe '#build' do
-    it 'builds xml' do
+    it 'builds xml using method missing with prefixed node' do
       expect(
         builder.build do
           node_catalog do
@@ -22,6 +22,24 @@ describe Lmx::Builder do
               node_author do
                 content 'Proust, Marcel'
               end
+            end
+          end
+        end
+      ).to eq expected_xml
+    end
+
+    it 'builds xml using node method' do
+      expect(
+        builder.build do
+          node :catalog do
+            node :book, id: 1 do
+              node :author do
+                content 'Hugo, Victor'
+              end
+            end
+
+            node :book, id: 2 do
+              node(:author) { content 'Proust, Marcel' }
             end
           end
         end
