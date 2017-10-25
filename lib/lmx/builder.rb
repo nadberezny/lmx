@@ -8,6 +8,16 @@ module Lmx
   #     end
   #   end
   # end
+  #
+  # or
+  #
+  # builder.build do
+  #   node :catalog do
+  #     node :book, id: 1 do
+  #       node(:author) { content 'Hugo, Victor' }
+  #     end
+  #   end
+  # end
   # => "<catalog><book id=\"1\"><author>Hugo, Victor</author></book></catalog>"
   class Builder
     attr_reader :xml
@@ -21,7 +31,7 @@ module Lmx
       node = match_node(m.to_s)
       return super unless node
 
-      add_node(node, args[0] || {}, &block)
+      node(node, args[0] || {}, &block)
     end
 
     def respond_to_missing?(m, _include_private)
@@ -55,6 +65,10 @@ module Lmx
 
     def method_prefix
       'node_'
+    end
+
+    def node(name, **args, &block)
+      add_node(name, args, &block)
     end
   end
 end

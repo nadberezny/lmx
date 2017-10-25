@@ -35,6 +35,22 @@ end
 
 ```
 
+or
+
+```ruby
+xml_builder = Lmx::Builder.new
+
+xml_builder.build do
+  node :catalog do
+    node :book, id: 1 do
+      node(:author) { content 'Hugo, Victor' }
+    end
+  end
+end
+# => "<catalog><book id=\"1\"><author>Hugo, Victor</author></book></catalog>"
+
+```
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
